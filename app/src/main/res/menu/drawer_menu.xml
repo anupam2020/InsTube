@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+<!--    <item android:title="">-->
+<!--        <menu>-->
+<!--            <group>-->
+<!--            </group>-->
+<!--        </menu>-->
+<!--    </item>-->
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:title="Share App"
+            android:id="@+id/share"
+            android:icon="@drawable/ic_outline_share_24"/>
+
+        <item
+            android:title="Feedback"
+            android:id="@+id/feedback"
+            android:icon="@drawable/ic_outline_feedback_24"/>
+
+    </group>
+
+    <item
+        android:title="Others">
+
+        <menu>
+
+            <group>
+
+                <item
+                    android:title="Update App"
+                    android:id="@+id/update"
+                    android:icon="@drawable/ic_outline_update_24"/>
+
+                <item
+                    android:title="Sign Out"
+                    android:id="@+id/sign_out"
+                    android:icon="@drawable/ic_outline_logout_24"/>
+
+                <item
+                    android:title="More"
+                    android:id="@+id/more"
+                    android:icon="@drawable/ic_outline_info_24"/>
+
+            </group>
+
+        </menu>
+
+    </item>
+
+</menu>
