@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MoreFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:requiresFadingEdge="vertical"
+        android:fadingEdgeLength="25dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp">
+
+            <ImageView
+                android:id="@+id/moreInsTubeIcon"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/instube_new" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:id="@+id/moreInsTubeText"
+                android:textSize="25dp"
+                android:textColor="@color/black"
+                android:layout_below="@id/moreInsTubeIcon"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_version"
+                android:textSize="13dp"
+                android:layout_below="@id/moreInsTubeText"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/moreInsTubeVersion"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_below="@id/moreInsTubeVersion">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:id="@+id/moreRelative1">
+
+                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/moreUser"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_outline_info_24_orange"
+                        app:civ_border_color="#1AFF6E42"
+                        app:civ_border_width="14dp"
+                        app:civ_circle_background_color="#1AFF6E42" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/moreUser"
+                        android:text="About Us"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="30dp"
+                        android:textSize="16dp"
+                        android:textColor="@color/black"
+                        android:id="@+id/moreAboutUs"/>
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/arrowAbout"
+                        app:tint="@color/grey"/>
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:id="@+id/moreRelative2"
+                    android:layout_marginTop="10dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/moreTerms"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:civ_border_width="14dp"
+                        android:src="@drawable/ic_outline_library_books_24_blue"
+                        app:civ_circle_background_color="#1A1E88E6"
+                        android:layout_centerVertical="true"
+                        app:civ_border_color="#1A1E88E6"
+                        />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/moreTerms"
+                        android:text="Terms &amp; Conditions"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="30dp"
+                        android:textSize="16dp"
+                        android:textColor="@color/black"
+                        android:id="@+id/moreTermsAndCond"/>
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/arrowTerms"
+                        app:tint="@color/grey"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:id="@+id/moreRelative3"
+                    android:layout_marginTop="10dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/morePrivacy"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:civ_border_width="14dp"
+                        android:src="@drawable/ic_baseline_policy_24_red"
+                        app:civ_circle_background_color="#0DFF0400"
+                        android:layout_centerVertical="true"
+                        app:civ_border_color="#0DFF0400"
+                        />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/morePrivacy"
+                        android:text="Privacy Policy"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="30dp"
+                        android:textSize="16dp"
+                        android:textColor="@color/black"
+                        android:id="@+id/morePrivacyPolicy"/>
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/arrowPrivacy"
+                        app:tint="@color/grey"/>
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:id="@+id/moreRelative4"
+                    android:layout_marginTop="10dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/moreRate"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:civ_border_width="14dp"
+                        android:src="@drawable/ic_baseline_star_24_grey"
+                        app:civ_circle_background_color="#1AFFB300"
+                        android:layout_centerVertical="true"
+                        app:civ_border_color="#1AFFB300"
+                        />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/moreRate"
+                        android:text="Rate Us"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="30dp"
+                        android:textSize="16dp"
+                        android:textColor="@color/black"
+                        android:id="@+id/moreRateUs"/>
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/arrowRate"
+                        app:tint="@color/grey"/>
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:id="@+id/moreRelative5"
+                    android:layout_marginTop="10dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/moreShare"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:civ_border_width="14dp"
+                        android:src="@drawable/ic_outline_share_24_green"
+                        app:civ_circle_background_color="#1A26A699"
+                        android:layout_centerVertical="true"
+                        app:civ_border_color="#1A26A699"
+                        />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/moreShare"
+                        android:text="Share App"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="30dp"
+                        android:textSize="16dp"
+                        android:textColor="@color/black"
+                        android:id="@+id/moreShareApp"/>
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/arrowShare"
+                        app:tint="@color/grey"/>
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:id="@+id/moreRelative6"
+                    android:layout_marginTop="10dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/moreWebsiteImg"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/website2"
+                        app:civ_border_color="#1A000000"
+                        app:civ_border_width="10dp"
+                        app:civ_circle_background_color="#1A000000" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/moreWebsiteImg"
+                        android:text="Visit My Website"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="30dp"
+                        android:textSize="15dp"
+                        android:textColor="@color/black"
+                        android:id="@+id/moreWebsiteText"/>
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/arrowWebsite"
+                        app:tint="@color/grey"/>
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</FrameLayout>

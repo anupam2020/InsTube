@@ -8,20 +8,34 @@
 <!--        </menu>-->
 <!--    </item>-->
 
-    <group
-        android:checkableBehavior="single">
+    <item
+        android:title="Home"
+        android:id="@+id/home"
+        android:icon="@drawable/ic_outline_home_24"/>
 
-        <item
-            android:title="Share App"
-            android:id="@+id/share"
-            android:icon="@drawable/ic_outline_share_24"/>
+    <item
+        android:title="Communicate">
 
-        <item
-            android:title="Feedback"
-            android:id="@+id/feedback"
-            android:icon="@drawable/ic_outline_feedback_24"/>
+        <menu>
 
-    </group>
+            <group
+                android:checkableBehavior="single">
+
+                <item
+                    android:title="Share App"
+                    android:id="@+id/share"
+                    android:icon="@drawable/ic_outline_share_24"/>
+
+                <item
+                    android:title="Feedback"
+                    android:id="@+id/feedback"
+                    android:icon="@drawable/ic_outline_feedback_24"/>
+
+            </group>
+
+        </menu>
+
+    </item>
 
     <item
         android:title="Others">
@@ -34,11 +48,6 @@
                     android:title="Update App"
                     android:id="@+id/update"
                     android:icon="@drawable/ic_outline_update_24"/>
-
-                <item
-                    android:title="Sign Out"
-                    android:id="@+id/sign_out"
-                    android:icon="@drawable/ic_outline_logout_24"/>
 
                 <item
                     android:title="More"

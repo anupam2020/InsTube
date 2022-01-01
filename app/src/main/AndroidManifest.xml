@@ -10,10 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Insta_Youtube_Video_Downloader">
         <activity
+            android:name=".PrivacyPolicyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TermsConditionsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AboutUsActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/BlackTheme"/>
+            android:theme="@style/BlackTheme" />
         <activity
             android:name=".SplashScreen"
             android:exported="true"

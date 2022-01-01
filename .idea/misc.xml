@@ -3,13 +3,27 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/drawable-v24/ic_baseline_add_24.xml" value="0.2703125" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/drawable-v24/ic_baseline_circle_24_blue.xml" value="0.14635416666666667" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/drawable-v24/ic_baseline_sentiment_satisfied_alt_24.xml" value="0.2703125" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/drawable/button_bg_red.xml" value="0.2703125" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/drawable/drawer_bg.xml" value="0.2703125" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/layout/activity_about_us.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/layout/activity_privacy_policy.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/layout/activity_splash_screen.xml" value="0.24010416666666667" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/layout/activity_terms_conditions.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/layout/fragment_about_us.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/layout/fragment_feedback.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/layout/fragment_home.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/layout/fragment_insta.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/layout/fragment_more.xml" value="0.24010416666666667" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/layout/fragment_more_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/layout/fragment_youtube.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/layout/header_layout.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/menu/drawer_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/menu/menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/menu/popup_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2703125" />
       </map>
     </option>

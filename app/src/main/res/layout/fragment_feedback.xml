@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".FeedbackFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send Us Your Feedback!"
+        android:textSize="25dp"
+        android:textColor="@color/black"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:fontFamily="@font/aladin"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/linearLayout"
+            android:layout_centerHorizontal="true">
+
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_baseline_sentiment_very_satisfied_24"
+                android:id="@+id/verySatisfied"
+                app:tint="@color/grey"/>
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_baseline_sentiment_satisfied_alt_24"
+                android:id="@+id/satisfied"
+                android:layout_marginLeft="15dp"
+                app:tint="@color/grey"/>
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_baseline_sentiment_very_dissatisfied_24"
+                android:id="@+id/veryDissatisfied"
+                android:layout_marginLeft="15dp"
+                app:tint="@color/grey"/>
+
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/feedbackLayout1"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@id/linearLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="190dp"
+                android:hint="Describe your experience here"
+                android:gravity="top"
+                android:id="@+id/feedbackEditText1" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="165dp"
+            android:layout_height="55dp"
+            android:background="@drawable/button_bg_red"
+            android:text="SEND"
+            android:textSize="18dp"
+            android:textColor="@color/white"
+            android:id="@+id/feedbackButton"
+            android:layout_below="@id/feedbackLayout1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"/>
+
+    </RelativeLayout>
+
+</FrameLayout>
