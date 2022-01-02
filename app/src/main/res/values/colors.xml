@@ -9,6 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#80000000</color>
     <color name="red">#FF0000</color>
+    <color name="purple">#FF005D</color>
+    <color name="violet">#5400FF</color>
     <color name="green">#00FF0B</color>
     <color name="yellow">#FFD000</color>
 </resources>
