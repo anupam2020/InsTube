@@ -1,5 +1,6 @@
 package com.sbdev.insta_youtube_video_downloader;
 
+import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -17,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -31,6 +33,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.Call;
@@ -54,7 +58,7 @@ public class InstaFragment extends Fragment {
 
     private String ID="";
 
-    private TextView vidTitle,timeTV;
+    private TextView vidTitle,timeTV,viewsTV;
 
     private ImageView vidImg,download;
 
@@ -76,6 +80,7 @@ public class InstaFragment extends Fragment {
         progressBar=view.findViewById(R.id.instaProgress);
         download=view.findViewById(R.id.instaDownloadBtn);
         timeTV=view.findViewById(R.id.instaTimeText);
+        viewsTV=view.findViewById(R.id.instaViews);
         circleImageView=view.findViewById(R.id.instaCircularImg);
         cardView=view.findViewById(R.id.instaCard2);
 
@@ -90,7 +95,8 @@ public class InstaFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                //String ytLink=ytEditText.getText().toString();
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                 ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
 
@@ -105,6 +111,9 @@ public class InstaFragment extends Fragment {
         downloadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                 progressBar.setVisibility(View.VISIBLE);
 
@@ -166,13 +175,13 @@ public class InstaFragment extends Fragment {
 
                                             Glide.with(getActivity())
                                                     .load(display_url)
-                                                    .placeholder(R.drawable.image_loading)
-                                                    .error(R.drawable.loading_failed)
+                                                    .placeholder(R.drawable.ic_baseline_image_search_24_resized)
+                                                    .error(R.drawable.ic_outline_image_not_supported_24_resized)
                                                     .into(vidImg);
                                             Glide.with(getActivity())
                                                     .load(display_url)
-                                                    .placeholder(R.drawable.image_loading)
-                                                    .error(R.drawable.loading_failed)
+                                                    .placeholder(R.drawable.ic_baseline_image_search_24_black)
+                                                    .error(R.drawable.ic_outline_image_not_supported_24_black)
                                                     .into(circleImageView);
 
                                             boolean is_video=shortcode_media.getBoolean("is_video");
@@ -181,7 +190,11 @@ public class InstaFragment extends Fragment {
 
                                                 String video_url=shortcode_media.getString("video_url");
                                                 double video_duration=shortcode_media.getDouble("video_duration");
-                                                timeTV.setText((int)video_duration+" secs");
+                                                timeTV.setText((int)video_duration+" SECS");
+
+                                                long viewsCount=shortcode_media.getLong("video_view_count");
+                                                String strViews=getFormattedAmount(viewsCount);
+                                                viewsTV.setText(strViews+" views");
 
                                                 progressBar.setVisibility(View.INVISIBLE);
                                                 cardView.setVisibility(View.VISIBLE);
@@ -263,7 +276,11 @@ public class InstaFragment extends Fragment {
 
                                                             String video_url=shortcode_media.getString("video_url");
                                                             double video_duration=shortcode_media.getDouble("video_duration");
-                                                            timeTV.setText((int)video_duration+" secs");
+                                                            timeTV.setText((int)video_duration+" SECS");
+
+                                                            long viewsCount=shortcode_media.getLong("video_view_count");
+                                                            String strViews=getFormattedAmount(viewsCount);
+                                                            viewsTV.setText(strViews+" views");
 
                                                             progressBar.setVisibility(View.INVISIBLE);
                                                             cardView.setVisibility(View.VISIBLE);
@@ -306,19 +323,22 @@ public class InstaFragment extends Fragment {
     }
 
 
-    private void downloadURL(String url)
-    {
+    private void downloadURL(String url) {
 
-        DownloadManager.Request request=new DownloadManager.Request(Uri.parse(url));
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
 
-        DownloadManager downloadManager= (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
+        DownloadManager downloadManager = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
 
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,strTime+".mp4");
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, strTime + ".mp4");
 
         downloadManager.enqueue(request);
 
+    }
+
+    private String getFormattedAmount(long amount){
+        return NumberFormat.getNumberInstance(Locale.US).format(amount);
     }
 
 

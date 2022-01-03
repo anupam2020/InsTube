@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PrivacyPolicyActivity">
+    tools:context=".PrivacyPolicyActivity"
+    android:background="@color/white">
 
     <ImageView
         android:id="@+id/privacyBack"
@@ -60,6 +61,12 @@
         android:layout_marginTop="15dp"
         android:requiresFadingEdge="vertical"
         android:fadingEdgeLength="25dp"/>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/privacyProgress"/>
 
 
 </RelativeLayout>

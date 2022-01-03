@@ -8,11 +8,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.ActivityNotFoundException;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,12 +29,17 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.pranavpandey.android.dynamic.toasts.DynamicToast;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
-    private ImageView img,more;
+    private ImageView img,more,youtube;
+    private CircleImageView insta;
 
     private NavigationView navigationView;
+
+    private ClipboardManager clipboardManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +53,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         img=findViewById(R.id.mainImg);
         more=findViewById(R.id.mainMore);
         navigationView=findViewById(R.id.navView);
+        youtube=findViewById(R.id.mainYoutube);
+        insta=findViewById(R.id.mainInsta);
+
+        clipboardManager= (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
 
         navigationView.setNavigationItemSelectedListener(this);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new HomeFragment()).commit();
         this.onNavigationItemSelected(navigationView.getMenu().getItem(0).setChecked(true));
+
+
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        String type = intent.getType();
+        if ("android.intent.action.SEND".equals(action) && type != null && "text/plain".equals(type)) {
+            Log.d("Copied Text",intent.getStringExtra("android.intent.extra.TEXT"));
+
+            ClipData clipData=ClipData.newPlainText("label",intent.getStringExtra("android.intent.extra.TEXT"));
+            clipboardManager.setPrimaryClip(clipData);
+            DynamicToast.make(MainActivity.this, "Link successfully copied... Just paste it!", getResources().getDrawable(R.drawable.ic_baseline_check_circle_outline_24),
+                    getResources().getColor(R.color.white), getResources().getColor(R.color.black), 2000).show();
+
+        }
 
 
         img.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +116,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 });
 
                 popupMenu.show();
+
+            }
+        });
+
+        youtube.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                openLinks("https://www.youtube.com");
+
+            }
+        });
+
+        insta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                openLinks("https://www.instagram.com");
 
             }
         });
@@ -142,6 +187,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new HomeFragment()).commit();
                 break;
 
+            case R.id.search:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new SearchFragment()).commit();
+                break;
+
             case R.id.share:
                 shareApp();
                 break;
@@ -189,5 +238,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             DynamicToast.makeError(this,e.getMessage(),2000).show();
         }
     }
+
+
+    public void openLinks(String url)
+    {
+
+        Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse(url));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException ex) {
+            DynamicToast.makeError(MainActivity.this, ex.getMessage(),2000).show();
+        }
+
+    }
+
 
 }

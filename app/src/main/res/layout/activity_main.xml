@@ -29,6 +29,24 @@
                 android:src="@drawable/ic_outline_more_vert_24"
                 app:tint="@color/black" />
 
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/mainInsta"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:layout_toLeftOf="@id/mainMore"
+                android:src="@drawable/instagram" />
+
+            <ImageView
+                android:id="@+id/mainYoutube"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/youtube"
+                android:layout_toLeftOf="@id/mainInsta"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp" />
+
             <ImageView
                 android:id="@+id/mainImg"
                 android:layout_width="35dp"

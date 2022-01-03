@@ -14,7 +14,6 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.os.Environment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,8 +32,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.Call;
@@ -43,7 +40,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class YoutubeFragment extends Fragment {
+public class YoutubeMp3Fragment extends Fragment {
 
     private TextInputEditText ytEditText;
 
@@ -66,22 +63,21 @@ public class YoutubeFragment extends Fragment {
 
     private CardView cardView;
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ytEditText=view.findViewById(R.id.youtubeLink);
-        pasteBtn=view.findViewById(R.id.youtubePaste);
-        downloadBtn=view.findViewById(R.id.youtubeDownload);
-        vidTitle=view.findViewById(R.id.youtubeVideoTitle);
-        vidImg=view.findViewById(R.id.youtubeVideoImg);
-        progressBar=view.findViewById(R.id.youtubeProgress);
-        download=view.findViewById(R.id.youtubeDownloadBtn);
-        qualityTV=view.findViewById(R.id.youtubeQualityText);
-        timeTV=view.findViewById(R.id.youtubeTimeText);
-        circleImageView=view.findViewById(R.id.youtubeCircularImg);
-        cardView=view.findViewById(R.id.youtubeCard2);
+        ytEditText=view.findViewById(R.id.youtubeMP3Link);
+        pasteBtn=view.findViewById(R.id.youtubeMP3Paste);
+        downloadBtn=view.findViewById(R.id.youtubeMP3Download);
+        vidTitle=view.findViewById(R.id.youtubeMP3VideoTitle);
+        vidImg=view.findViewById(R.id.youtubeMP3VideoImg);
+        progressBar=view.findViewById(R.id.youtubeMP3Progress);
+        download=view.findViewById(R.id.youtubeMP3DownloadBtn);
+        qualityTV=view.findViewById(R.id.youtubeMP3QualityText);
+        timeTV=view.findViewById(R.id.youtubeMP3TimeText);
+        circleImageView=view.findViewById(R.id.youtubeMP3CircularImg);
+        cardView=view.findViewById(R.id.youtubeMP3Card2);
 
         progressBar.setVisibility(View.INVISIBLE);
         cardView.setVisibility(View.INVISIBLE);
@@ -106,6 +102,10 @@ public class YoutubeFragment extends Fragment {
 
             }
         });
+
+        progressBar=view.findViewById(R.id.youtubeMP3Progress);
+        progressBar.setVisibility(View.INVISIBLE);
+
 
         downloadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,7 +134,7 @@ public class YoutubeFragment extends Fragment {
                             .url("https://youtube-search-and-download.p.rapidapi.com/video?id="+ID)
                             .get()
                             .addHeader("x-rapidapi-host", "youtube-search-and-download.p.rapidapi.com")
-                            .addHeader("x-rapidapi-key", "e8f6c57650msh666fef2e3a110b5p13b950jsn4359d608e124")
+                            .addHeader("x-rapidapi-key", "19c7e07597mshd4a487bebda6ef4p1c4c7fjsna9c61e2c34f8")
                             .build();
 
                     client.newCall(request).enqueue(new Callback() {
@@ -160,42 +160,41 @@ public class YoutubeFragment extends Fragment {
 
                                             JSONObject jsonObject=new JSONObject(res);
 
-                                            JSONObject videoDetails=jsonObject.getJSONObject("videoDetails");
-                                            String title=videoDetails.getString("title");
-                                            int lengthSeconds=videoDetails.getInt("lengthSeconds");
+                                            JSONObject streamingData=jsonObject.getJSONObject("streamingData");
+                                            JSONArray adaptiveFormats=streamingData.getJSONArray("adaptiveFormats");
 
+                                            JSONObject index=adaptiveFormats.getJSONObject(adaptiveFormats.length()-1);
+
+                                            long approxDurationMs=index.getLong("approxDurationMs");
+                                            timeTV.setText((int)(approxDurationMs/1000)/60+" mins");
+
+                                            String mimeType=index.getString("mimeType");
+                                            qualityTV.setText(mimeType.substring(0,10).toUpperCase());
+
+                                            String url=index.getString("url");
+
+
+                                            JSONObject videoDetails=jsonObject.getJSONObject("videoDetails");
+
+                                            String title=videoDetails.getString("title");
                                             vidTitle.setText(title);
-                                            timeTV.setText((int)lengthSeconds/60+" mins");
 
                                             JSONObject thumbnail=videoDetails.getJSONObject("thumbnail");
                                             JSONArray thumbnails=thumbnail.getJSONArray("thumbnails");
 
-                                            JSONObject index=thumbnails.getJSONObject(thumbnails.length()-1);
-                                            String url=index.getString("url");
+                                            JSONObject indexJSON=thumbnails.getJSONObject(thumbnails.length()-1);
+                                            String urlJSON=indexJSON.getString("url");
 
                                             Glide.with(getActivity())
-                                                    .load(url)
+                                                    .load(urlJSON)
                                                     .placeholder(R.drawable.ic_baseline_image_search_24_resized)
                                                     .error(R.drawable.ic_outline_image_not_supported_24_resized)
                                                     .into(vidImg);
                                             Glide.with(getActivity())
-                                                    .load(url)
+                                                    .load(urlJSON)
                                                     .placeholder(R.drawable.ic_baseline_image_search_24_black)
                                                     .error(R.drawable.ic_outline_image_not_supported_24_black)
                                                     .into(circleImageView);
-
-
-                                            JSONObject streamingData=jsonObject.getJSONObject("streamingData");
-
-                                            JSONArray formats=streamingData.getJSONArray("adaptiveFormats");
-
-                                            JSONObject formats_index=formats.getJSONObject(0);
-
-                                            String quality=formats_index.getString("quality");
-                                            String qualityLabel=formats_index.getString("qualityLabel");
-                                            String downloadURL=formats_index.getString("url");
-
-                                            qualityTV.setText((qualityLabel+"- "+quality).toUpperCase());
 
                                             progressBar.setVisibility(View.INVISIBLE);
                                             cardView.setVisibility(View.VISIBLE);
@@ -203,9 +202,10 @@ public class YoutubeFragment extends Fragment {
                                             download.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
-                                                    downloadURL(downloadURL,title);
+                                                    downloadURL(url,title);
                                                 }
                                             });
+
 
                                         } catch (JSONException e) {
                                             progressBar.setVisibility(View.INVISIBLE);
@@ -225,8 +225,8 @@ public class YoutubeFragment extends Fragment {
             }
         });
 
-    }
 
+    }
 
     private void downloadURL(String url,String title)
     {
@@ -237,7 +237,7 @@ public class YoutubeFragment extends Fragment {
 
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,title+".mp4");
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,title+".mp3");
 
         downloadManager.enqueue(request);
 
@@ -248,6 +248,6 @@ public class YoutubeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_youtube, container, false);
+        return inflater.inflate(R.layout.fragment_youtube_mp3, container, false);
     }
 }

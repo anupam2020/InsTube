@@ -31,8 +31,9 @@ public class HomeFragment extends Fragment {
         adapter=new FragmentStateAdapter(fm,getLifecycle());
         viewPager2.setAdapter(adapter);
 
-        tabLayout.addTab(tabLayout.newTab().setText("Instagram"));
-        tabLayout.addTab(tabLayout.newTab().setText("Youtube"));
+        tabLayout.addTab(tabLayout.newTab().setText("Instagram\nMP4"));
+        tabLayout.addTab(tabLayout.newTab().setText("Youtube\nMP4"));
+        tabLayout.addTab(tabLayout.newTab().setText("Youtube\nMP3"));
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

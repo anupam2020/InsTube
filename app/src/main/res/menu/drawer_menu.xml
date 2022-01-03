@@ -14,6 +14,11 @@
         android:icon="@drawable/ic_outline_home_24"/>
 
     <item
+        android:title="Search YT Videos"
+        android:id="@+id/search"
+        android:icon="@drawable/ic_baseline_manage_search_24"/>
+
+    <item
         android:title="Communicate">
 
         <menu>

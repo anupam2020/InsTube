@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".YoutubeFragment">
-
+    tools:context=".YoutubeMp3Fragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,15 +16,15 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_margin="15dp"
             app:endIconMode="clear_text"
-            android:id="@+id/youtubeInputLayout">
+            android:id="@+id/youtubeMP3InputLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/youtubeLink"
+                android:id="@+id/youtubeMP3Link"
                 android:drawableStart="@drawable/ic_baseline_link_24"
                 android:drawableTint="@color/black"
-                android:hint="Youtube Link"
+                android:hint="YT Video Link"
                 android:drawablePadding="15dp"
                 android:singleLine="true"/>
 
@@ -35,16 +34,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_below="@id/youtubeInputLayout"
+            android:layout_below="@id/youtubeMP3InputLayout"
             android:gravity="center"
             android:layout_marginTop="15dp"
-            android:id="@+id/youtubeLinear">
+            android:id="@+id/youtubeMP3Linear">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:text="Paste Link"
-                android:id="@+id/youtubePaste"
+                android:id="@+id/youtubeMP3Paste"
                 android:background="@drawable/black_bg"
                 android:textColor="@color/white"/>
 
@@ -52,9 +51,9 @@
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:text="Fetch Data"
-                android:id="@+id/youtubeDownload"
+                android:id="@+id/youtubeMP3Download"
                 android:layout_marginLeft="15dp"
-                android:background="@drawable/red_bg"
+                android:background="@drawable/blue_bg"
                 android:textColor="@color/white"/>
 
         </LinearLayout>
@@ -62,7 +61,7 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/youtubeLinear"
+            android:layout_below="@id/youtubeMP3Linear"
             android:layout_marginTop="25dp">
 
             <RelativeLayout
@@ -76,7 +75,7 @@
                     android:elevation="5dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:id="@+id/youtubeCard"
+                    android:id="@+id/youtubeMP3Card"
                     android:layout_centerHorizontal="true">
 
                     <RelativeLayout
@@ -87,7 +86,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/youtubeVideoImg"
+                            android:id="@+id/youtubeMP3VideoImg"
                             android:layout_centerHorizontal="true"
                             android:scaleType="fitXY"/>
 
@@ -99,10 +98,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:layout_below="@id/youtubeCard"
+                    android:layout_below="@id/youtubeMP3Card"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
-                    android:id="@+id/youtubeVideoTitle"
+                    android:id="@+id/youtubeMP3VideoTitle"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:textAlignment="center"
@@ -114,8 +113,8 @@
                     app:cardCornerRadius="10dp"
                     android:elevation="5dp"
                     android:layout_margin="15dp"
-                    android:layout_below="@+id/youtubeVideoTitle"
-                    android:id="@+id/youtubeCard2"
+                    android:layout_below="@+id/youtubeMP3VideoTitle"
+                    android:id="@+id/youtubeMP3Card2"
                     android:visibility="invisible">
 
                     <RelativeLayout
@@ -126,20 +125,21 @@
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:id="@+id/youtubeCircularImg"/>
+                            android:id="@+id/youtubeMP3CircularImg"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:layout_centerVertical="true">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/black"
                                 android:textSize="18dp"
-                                android:id="@+id/youtubeQualityText"
+                                android:id="@+id/youtubeMP3QualityText"
                                 android:layout_gravity="center"/>
 
                             <TextView
@@ -147,20 +147,20 @@
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/black"
                                 android:textSize="15dp"
-                                android:id="@+id/youtubeTimeText"
+                                android:id="@+id/youtubeMP3TimeText"
                                 android:layout_gravity="center"
                                 android:textStyle="bold"/>
 
                         </LinearLayout>
 
                         <ImageView
+                            android:id="@+id/youtubeMP3DownloadBtn"
                             android:layout_width="35dp"
                             android:layout_height="35dp"
-                            android:src="@drawable/ic_outline_download_for_offline_24"
                             android:layout_alignParentEnd="true"
-                            android:id="@+id/youtubeDownloadBtn"
-                            app:tint="@color/red"
-                            android:layout_centerVertical="true" />
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_outline_download_for_offline_24"
+                            app:tint="@color/blue" />
 
                     </RelativeLayout>
 
@@ -176,6 +176,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:id="@+id/youtubeProgress"/>
+        android:id="@+id/youtubeMP3Progress"/>
 
 </FrameLayout>

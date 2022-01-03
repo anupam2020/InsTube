@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:elevation="5dp"
+        app:cardCornerRadius="10dp"
+        android:id="@+id/searchItemCard1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:elevation="5dp"
+                app:cardCornerRadius="10dp"
+                android:id="@+id/searchItemCard2">
+
+                <ImageView
+                    android:id="@+id/searchItemImg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                     />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/black_bg_no_radius"
+                    android:text="14:16"
+                    android:textColor="@color/white"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:id="@+id/searchItemTime"
+                    android:padding="5dp"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/searchItemCard2"
+                android:layout_marginTop="10dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentLeft="true"
+                    android:src="@drawable/instube_new"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/searchItemCircleImg"/>
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_outline_more_vert_24"
+                    app:tint="@color/black"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/searchItemMore"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_toLeftOf="@id/searchItemMore"
+                    android:layout_toRightOf="@id/searchItemCircleImg"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Hey! Welcome to my Youtube channel! Thank You for being with me!"
+                        android:textColor="@color/black"
+                        android:id="@+id/searchItemTitle"
+                        android:textSize="16dp"/>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/searchItemTitle"
+                        android:layout_marginTop="5dp">
+
+                        <TextView
+                            android:id="@+id/searchItemAuthor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Anuj Bhaiya"
+                            android:textColor="@color/grey"
+                            android:textSize="10dp" />
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1,53,460 views"
+                            android:textSize="10dp"
+                            android:textColor="@color/grey"
+                            android:id="@+id/searchItemViews"
+                            android:layout_toRightOf="@id/searchItemAuthor"
+                            android:layout_marginLeft="10dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="7 days ago"
+                            android:textSize="10dp"
+                            android:textColor="@color/grey"
+                            android:id="@+id/searchItemDaysAgo"
+                            android:layout_toRightOf="@id/searchItemViews"
+                            android:layout_marginLeft="10dp"/>
+
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

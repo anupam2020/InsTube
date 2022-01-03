@@ -21,6 +21,8 @@ public class FragmentStateAdapter extends androidx.viewpager2.adapter.FragmentSt
                 return new InstaFragment();
             case 1:
                 return new YoutubeFragment();
+            case 2:
+                return new YoutubeMp3Fragment();
         }
 
         return null;
@@ -28,6 +30,6 @@ public class FragmentStateAdapter extends androidx.viewpager2.adapter.FragmentSt
 
     @Override
     public int getItemCount() {
-        return 2;
+        return 3;
     }
 }
