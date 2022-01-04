@@ -3,6 +3,7 @@ package com.sbdev.insta_youtube_video_downloader;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -27,6 +28,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     ArrayList<SearchModel> arrayList;
     Context context;
     ClipboardManager clipboard;
+    String str="";
 
     public SearchAdapter(ArrayList<SearchModel> arrayList, Context context) {
         this.arrayList = arrayList;
@@ -57,6 +59,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             @Override
             public void onClick(View v) {
 
+                str=arrayList.get(holder.getAdapterPosition()).vidID;
+                str="https://youtu.be/"+str;
+
                 PopupMenu popupMenu=new PopupMenu(context,v);
                 popupMenu.getMenuInflater().inflate(R.menu.popup_menu_more,popupMenu.getMenu());
 
@@ -68,17 +73,23 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                         {
 
                             case R.id.copyLink:
+
                                 Log.d("Link",arrayList.get(holder.getAdapterPosition()).vidID);
 
-                                String str=arrayList.get(holder.getAdapterPosition()).vidID;
-
-                                str="https://youtu.be/"+str;
                                 Log.d("newStr",str);
                                 ClipData clip = ClipData.newPlainText("label", str);
                                 clipboard.setPrimaryClip(clip);
                                 DynamicToast.make(context, "Link successfully copied!", context.getResources().getDrawable(R.drawable.ic_baseline_check_circle_outline_24),
                                         context.getResources().getColor(R.color.white), context.getResources().getColor(R.color.black), 2000).show();
 
+                                break;
+
+
+                            case R.id.playVideo:
+
+                                Intent intent=new Intent(context,PlayVideoWebView.class);
+                                intent.putExtra("playVidURL",str);
+                                context.startActivity(intent);
                                 break;
 
                         }

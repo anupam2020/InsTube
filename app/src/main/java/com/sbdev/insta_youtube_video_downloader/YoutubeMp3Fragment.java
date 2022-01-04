@@ -166,7 +166,8 @@ public class YoutubeMp3Fragment extends Fragment {
                                             JSONObject index=adaptiveFormats.getJSONObject(adaptiveFormats.length()-1);
 
                                             long approxDurationMs=index.getLong("approxDurationMs");
-                                            timeTV.setText((int)(approxDurationMs/1000)/60+" mins");
+                                            String appDur=String.format("%.2f",(double)approxDurationMs/60000);
+                                            timeTV.setText(appDur+" mins");
 
                                             String mimeType=index.getString("mimeType");
                                             qualityTV.setText(mimeType.substring(0,10).toUpperCase());

@@ -162,10 +162,11 @@ public class YoutubeFragment extends Fragment {
 
                                             JSONObject videoDetails=jsonObject.getJSONObject("videoDetails");
                                             String title=videoDetails.getString("title");
-                                            int lengthSeconds=videoDetails.getInt("lengthSeconds");
+                                            long lengthSeconds=videoDetails.getLong("lengthSeconds");
+                                            String lenSec=String.format("%.2f",(double)lengthSeconds/60);
 
                                             vidTitle.setText(title);
-                                            timeTV.setText((int)lengthSeconds/60+" mins");
+                                            timeTV.setText(lenSec+" mins");
 
                                             JSONObject thumbnail=videoDetails.getJSONObject("thumbnail");
                                             JSONArray thumbnails=thumbnail.getJSONArray("thumbnails");

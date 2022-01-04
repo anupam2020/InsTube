@@ -190,7 +190,7 @@ public class InstaFragment extends Fragment {
 
                                                 String video_url=shortcode_media.getString("video_url");
                                                 double video_duration=shortcode_media.getDouble("video_duration");
-                                                timeTV.setText((int)video_duration+" SECS");
+                                                timeTV.setText(String.format("%.2f",video_duration)+" secs");
 
                                                 long viewsCount=shortcode_media.getLong("video_view_count");
                                                 String strViews=getFormattedAmount(viewsCount);
@@ -276,7 +276,7 @@ public class InstaFragment extends Fragment {
 
                                                             String video_url=shortcode_media.getString("video_url");
                                                             double video_duration=shortcode_media.getDouble("video_duration");
-                                                            timeTV.setText((int)video_duration+" SECS");
+                                                            timeTV.setText(String.format("%.2f",video_duration)+" secs");
 
                                                             long viewsCount=shortcode_media.getLong("video_view_count");
                                                             String strViews=getFormattedAmount(viewsCount);
@@ -298,6 +298,637 @@ public class InstaFragment extends Fragment {
                                                     } catch (JSONException e) {
                                                         progressBar.setVisibility(View.INVISIBLE);
                                                         DynamicToast.makeError(getActivity(),e.getMessage(),2000).show();
+                                                    }
+
+                                                }
+                                            });
+
+                                        }
+                                        else
+                                        {
+                                            Log.e("Response",response.message());
+
+                                            Request request = new Request.Builder()
+                                                    .url("https://instagram28.p.rapidapi.com/media_info?short_code="+ID)
+                                                    .get()
+                                                    .addHeader("x-rapidapi-host", "instagram28.p.rapidapi.com")
+                                                    .addHeader("x-rapidapi-key", "19c7e07597mshd4a487bebda6ef4p1c4c7fjsna9c61e2c34f8")
+                                                    .build();
+
+                                            client.newCall(request).enqueue(new Callback() {
+                                                @Override
+                                                public void onFailure(Call call, IOException e) {
+                                                    progressBar.setVisibility(View.INVISIBLE);
+                                                    DynamicToast.makeError(getActivity(),e.getMessage(),2000).show();
+                                                }
+
+                                                @Override
+                                                public void onResponse(Call call, Response response) throws IOException {
+
+
+                                                    if(response.isSuccessful())
+                                                    {
+
+                                                        String res=response.body().string();
+
+                                                        getActivity().runOnUiThread(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+
+                                                                try {
+
+                                                                    JSONObject jsonObject=new JSONObject(res);
+
+                                                                    JSONObject data=jsonObject.getJSONObject("data");
+
+                                                                    JSONObject shortcode_media=data.getJSONObject("shortcode_media");
+
+                                                                    String display_url=shortcode_media.getString("display_url");
+
+                                                                    Glide.with(getActivity())
+                                                                            .load(display_url)
+                                                                            .placeholder(R.drawable.ic_baseline_image_search_24_resized)
+                                                                            .error(R.drawable.ic_outline_image_not_supported_24_resized)
+                                                                            .into(vidImg);
+                                                                    Glide.with(getActivity())
+                                                                            .load(display_url)
+                                                                            .placeholder(R.drawable.ic_baseline_image_search_24_black)
+                                                                            .error(R.drawable.ic_outline_image_not_supported_24_black)
+                                                                            .into(circleImageView);
+
+                                                                    boolean is_video=shortcode_media.getBoolean("is_video");
+                                                                    if(is_video)
+                                                                    {
+
+                                                                        String video_url=shortcode_media.getString("video_url");
+                                                                        double video_duration=shortcode_media.getDouble("video_duration");
+                                                                        timeTV.setText(String.format("%.2f",video_duration)+" secs");
+
+                                                                        long viewsCount=shortcode_media.getLong("video_view_count");
+                                                                        String strViews=getFormattedAmount(viewsCount);
+                                                                        viewsTV.setText(strViews+" views");
+
+                                                                        progressBar.setVisibility(View.INVISIBLE);
+                                                                        cardView.setVisibility(View.VISIBLE);
+
+                                                                        download.setOnClickListener(new View.OnClickListener() {
+                                                                            @Override
+                                                                            public void onClick(View v) {
+                                                                                downloadURL(video_url);
+                                                                            }
+                                                                        });
+
+                                                                    }
+
+
+                                                                } catch (JSONException e) {
+                                                                    progressBar.setVisibility(View.INVISIBLE);
+                                                                    DynamicToast.makeError(getActivity(),e.getMessage(),2000).show();
+                                                                }
+
+                                                            }
+                                                        });
+
+                                                    }
+                                                    else
+                                                    {
+                                                        Log.e("Response",response.message());
+
+                                                        Request request = new Request.Builder()
+                                                                .url("https://instagram-scraper2.p.rapidapi.com/media_info?short_code="+ID)
+                                                                .get()
+                                                                .addHeader("x-rapidapi-host", "instagram-scraper2.p.rapidapi.com")
+                                                                .addHeader("x-rapidapi-key", "19c7e07597mshd4a487bebda6ef4p1c4c7fjsna9c61e2c34f8")
+                                                                .build();
+
+
+                                                        client.newCall(request).enqueue(new Callback() {
+                                                            @Override
+                                                            public void onFailure(Call call, IOException e) {
+                                                                progressBar.setVisibility(View.INVISIBLE);
+                                                                DynamicToast.makeError(getActivity(),e.getMessage(),2000).show();
+                                                            }
+
+                                                            @Override
+                                                            public void onResponse(Call call, Response response) throws IOException {
+
+
+                                                                if(response.isSuccessful())
+                                                                {
+
+                                                                    String res=response.body().string();
+
+                                                                    getActivity().runOnUiThread(new Runnable() {
+                                                                        @Override
+                                                                        public void run() {
+
+                                                                            try {
+
+                                                                                JSONObject jsonObject=new JSONObject(res);
+
+                                                                                JSONObject data=jsonObject.getJSONObject("data");
+
+                                                                                JSONObject shortcode_media=data.getJSONObject("shortcode_media");
+
+                                                                                String display_url=shortcode_media.getString("display_url");
+
+                                                                                Glide.with(getActivity())
+                                                                                        .load(display_url)
+                                                                                        .placeholder(R.drawable.ic_baseline_image_search_24_resized)
+                                                                                        .error(R.drawable.ic_outline_image_not_supported_24_resized)
+                                                                                        .into(vidImg);
+                                                                                Glide.with(getActivity())
+                                                                                        .load(display_url)
+                                                                                        .placeholder(R.drawable.ic_baseline_image_search_24_black)
+                                                                                        .error(R.drawable.ic_outline_image_not_supported_24_black)
+                                                                                        .into(circleImageView);
+
+                                                                                boolean is_video=shortcode_media.getBoolean("is_video");
+                                                                                if(is_video)
+                                                                                {
+
+                                                                                    String video_url=shortcode_media.getString("video_url");
+                                                                                    double video_duration=shortcode_media.getDouble("video_duration");
+                                                                                    timeTV.setText(String.format("%.2f",video_duration)+" secs");
+
+                                                                                    long viewsCount=shortcode_media.getLong("video_view_count");
+                                                                                    String strViews=getFormattedAmount(viewsCount);
+                                                                                    viewsTV.setText(strViews+" views");
+
+                                                                                    progressBar.setVisibility(View.INVISIBLE);
+                                                                                    cardView.setVisibility(View.VISIBLE);
+
+                                                                                    download.setOnClickListener(new View.OnClickListener() {
+                                                                                        @Override
+                                                                                        public void onClick(View v) {
+                                                                                            downloadURL(video_url);
+                                                                                        }
+                                                                                    });
+
+                                                                                }
+
+
+                                                                            } catch (JSONException e) {
+                                                                                progressBar.setVisibility(View.INVISIBLE);
+                                                                                DynamicToast.makeError(getActivity(),e.getMessage(),2000).show();
+                                                                            }
+
+                                                                        }
+                                                                    });
+
+                                                                }
+                                                                else
+                                                                {
+                                                                    Log.e("Response",response.message());
+
+                                                                    Request request = new Request.Builder()
+                                                                            .url("https://instagram28.p.rapidapi.com/media_info?short_code="+ID)
+                                                                            .get()
+                                                                            .addHeader("x-rapidapi-host", "instagram28.p.rapidapi.com")
+                                                                            .addHeader("x-rapidapi-key", "49f2e9d8eamshff24c9679874ca7p149867jsn79bdeabe5c66")
+                                                                            .build();
+
+
+                                                                    client.newCall(request).enqueue(new Callback() {
+                                                                        @Override
+                                                                        public void onFailure(Call call, IOException e) {
+                                                                            progressBar.setVisibility(View.INVISIBLE);
+                                                                            DynamicToast.makeError(getActivity(),e.getMessage(),2000).show();
+                                                                        }
+
+                                                                        @Override
+                                                                        public void onResponse(Call call, Response response) throws IOException {
+
+
+                                                                            if(response.isSuccessful())
+                                                                            {
+
+                                                                                String res=response.body().string();
+
+                                                                                getActivity().runOnUiThread(new Runnable() {
+                                                                                    @Override
+                                                                                    public void run() {
+
+                                                                                        try {
+
+                                                                                            JSONObject jsonObject=new JSONObject(res);
+
+                                                                                            JSONObject data=jsonObject.getJSONObject("data");
+
+                                                                                            JSONObject shortcode_media=data.getJSONObject("shortcode_media");
+
+                                                                                            String display_url=shortcode_media.getString("display_url");
+
+                                                                                            Glide.with(getActivity())
+                                                                                                    .load(display_url)
+                                                                                                    .placeholder(R.drawable.ic_baseline_image_search_24_resized)
+                                                                                                    .error(R.drawable.ic_outline_image_not_supported_24_resized)
+                                                                                                    .into(vidImg);
+                                                                                            Glide.with(getActivity())
+                                                                                                    .load(display_url)
+                                                                                                    .placeholder(R.drawable.ic_baseline_image_search_24_black)
+                                                                                                    .error(R.drawable.ic_outline_image_not_supported_24_black)
+                                                                                                    .into(circleImageView);
+
+                                                                                            boolean is_video=shortcode_media.getBoolean("is_video");
+                                                                                            if(is_video)
+                                                                                            {
+
+                                                                                                String video_url=shortcode_media.getString("video_url");
+                                                                                                double video_duration=shortcode_media.getDouble("video_duration");
+                                                                                                timeTV.setText(String.format("%.2f",video_duration)+" secs");
+
+                                                                                                long viewsCount=shortcode_media.getLong("video_view_count");
+                                                                                                String strViews=getFormattedAmount(viewsCount);
+                                                                                                viewsTV.setText(strViews+" views");
+
+                                                                                                progressBar.setVisibility(View.INVISIBLE);
+                                                                                                cardView.setVisibility(View.VISIBLE);
+
+                                                                                                download.setOnClickListener(new View.OnClickListener() {
+                                                                                                    @Override
+                                                                                                    public void onClick(View v) {
+                                                                                                        downloadURL(video_url);
+                                                                                                    }
+                                                                                                });
+
+                                                                                            }
+
+
+                                                                                        } catch (JSONException e) {
+                                                                                            progressBar.setVisibility(View.INVISIBLE);
+                                                                                            DynamicToast.makeError(getActivity(),e.getMessage(),2000).show();
+                                                                                        }
+
+                                                                                    }
+                                                                                });
+
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                Log.e("Response",response.message());
+
+                                                                                Request request = new Request.Builder()
+                                                                                        .url("https://instagram-scraper2.p.rapidapi.com/media_info?short_code="+ID)
+                                                                                        .get()
+                                                                                        .addHeader("x-rapidapi-host", "instagram-scraper2.p.rapidapi.com")
+                                                                                        .addHeader("x-rapidapi-key", "49f2e9d8eamshff24c9679874ca7p149867jsn79bdeabe5c66")
+                                                                                        .build();
+
+
+                                                                                client.newCall(request).enqueue(new Callback() {
+                                                                                    @Override
+                                                                                    public void onFailure(Call call, IOException e) {
+                                                                                        progressBar.setVisibility(View.INVISIBLE);
+                                                                                        DynamicToast.makeError(getActivity(),e.getMessage(),2000).show();
+                                                                                    }
+
+                                                                                    @Override
+                                                                                    public void onResponse(Call call, Response response) throws IOException {
+
+
+                                                                                        if(response.isSuccessful())
+                                                                                        {
+
+                                                                                            String res=response.body().string();
+
+                                                                                            getActivity().runOnUiThread(new Runnable() {
+                                                                                                @Override
+                                                                                                public void run() {
+
+                                                                                                    try {
+
+                                                                                                        JSONObject jsonObject=new JSONObject(res);
+
+                                                                                                        JSONObject data=jsonObject.getJSONObject("data");
+
+                                                                                                        JSONObject shortcode_media=data.getJSONObject("shortcode_media");
+
+                                                                                                        String display_url=shortcode_media.getString("display_url");
+
+                                                                                                        Glide.with(getActivity())
+                                                                                                                .load(display_url)
+                                                                                                                .placeholder(R.drawable.ic_baseline_image_search_24_resized)
+                                                                                                                .error(R.drawable.ic_outline_image_not_supported_24_resized)
+                                                                                                                .into(vidImg);
+                                                                                                        Glide.with(getActivity())
+                                                                                                                .load(display_url)
+                                                                                                                .placeholder(R.drawable.ic_baseline_image_search_24_black)
+                                                                                                                .error(R.drawable.ic_outline_image_not_supported_24_black)
+                                                                                                                .into(circleImageView);
+
+                                                                                                        boolean is_video=shortcode_media.getBoolean("is_video");
+                                                                                                        if(is_video)
+                                                                                                        {
+
+                                                                                                            String video_url=shortcode_media.getString("video_url");
+                                                                                                            double video_duration=shortcode_media.getDouble("video_duration");
+                                                                                                            timeTV.setText(String.format("%.2f",video_duration)+" secs");
+
+                                                                                                            long viewsCount=shortcode_media.getLong("video_view_count");
+                                                                                                            String strViews=getFormattedAmount(viewsCount);
+                                                                                                            viewsTV.setText(strViews+" views");
+
+                                                                                                            progressBar.setVisibility(View.INVISIBLE);
+                                                                                                            cardView.setVisibility(View.VISIBLE);
+
+                                                                                                            download.setOnClickListener(new View.OnClickListener() {
+                                                                                                                @Override
+                                                                                                                public void onClick(View v) {
+                                                                                                                    downloadURL(video_url);
+                                                                                                                }
+                                                                                                            });
+
+                                                                                                        }
+
+
+                                                                                                    } catch (JSONException e) {
+                                                                                                        progressBar.setVisibility(View.INVISIBLE);
+                                                                                                        DynamicToast.makeError(getActivity(),e.getMessage(),2000).show();
+                                                                                                    }
+
+                                                                                                }
+                                                                                            });
+
+                                                                                        }
+                                                                                        else
+                                                                                        {
+
+                                                                                            Request request = new Request.Builder()
+                                                                                                    .url("https://instagram130.p.rapidapi.com/media-info?code="+ID)
+                                                                                                    .get()
+                                                                                                    .addHeader("x-rapidapi-host", "instagram130.p.rapidapi.com")
+                                                                                                    .addHeader("x-rapidapi-key", "e8f6c57650msh666fef2e3a110b5p13b950jsn4359d608e124")
+                                                                                                    .build();
+
+
+                                                                                            client.newCall(request).enqueue(new Callback() {
+                                                                                                @Override
+                                                                                                public void onFailure(Call call, IOException e) {
+                                                                                                    progressBar.setVisibility(View.INVISIBLE);
+                                                                                                    DynamicToast.makeError(getActivity(),e.getMessage(),2000).show();
+                                                                                                }
+
+                                                                                                @Override
+                                                                                                public void onResponse(Call call, Response response) throws IOException {
+
+
+                                                                                                    if(response.isSuccessful())
+                                                                                                    {
+
+                                                                                                        String res=response.body().string();
+
+                                                                                                        getActivity().runOnUiThread(new Runnable() {
+                                                                                                            @Override
+                                                                                                            public void run() {
+
+                                                                                                                try {
+
+                                                                                                                    JSONObject jsonObject=new JSONObject(res);
+
+                                                                                                                    String display_url=jsonObject.getString("display_url");
+
+                                                                                                                    Glide.with(getActivity())
+                                                                                                                            .load(display_url)
+                                                                                                                            .placeholder(R.drawable.ic_baseline_image_search_24_resized)
+                                                                                                                            .error(R.drawable.ic_outline_image_not_supported_24_resized)
+                                                                                                                            .into(vidImg);
+                                                                                                                    Glide.with(getActivity())
+                                                                                                                            .load(display_url)
+                                                                                                                            .placeholder(R.drawable.ic_baseline_image_search_24_black)
+                                                                                                                            .error(R.drawable.ic_outline_image_not_supported_24_black)
+                                                                                                                            .into(circleImageView);
+
+                                                                                                                    boolean is_video=jsonObject.getBoolean("is_video");
+                                                                                                                    if(is_video)
+                                                                                                                    {
+
+                                                                                                                        String video_url=jsonObject.getString("video_url");
+                                                                                                                        double video_duration=jsonObject.getDouble("video_duration");
+                                                                                                                        timeTV.setText(String.format("%.2f",video_duration)+" secs");
+
+                                                                                                                        long viewsCount=jsonObject.getLong("video_view_count");
+                                                                                                                        String strViews=getFormattedAmount(viewsCount);
+                                                                                                                        viewsTV.setText(strViews+" views");
+
+                                                                                                                        progressBar.setVisibility(View.INVISIBLE);
+                                                                                                                        cardView.setVisibility(View.VISIBLE);
+
+                                                                                                                        download.setOnClickListener(new View.OnClickListener() {
+                                                                                                                            @Override
+                                                                                                                            public void onClick(View v) {
+                                                                                                                                downloadURL(video_url);
+                                                                                                                            }
+                                                                                                                        });
+
+                                                                                                                    }
+
+
+                                                                                                                } catch (JSONException e) {
+                                                                                                                    progressBar.setVisibility(View.INVISIBLE);
+                                                                                                                    DynamicToast.makeError(getActivity(),e.getMessage(),2000).show();
+                                                                                                                }
+
+                                                                                                            }
+                                                                                                        });
+
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+
+                                                                                                        Request request = new Request.Builder()
+                                                                                                                .url("https://instagram130.p.rapidapi.com/media-info?code="+ID)
+                                                                                                                .get()
+                                                                                                                .addHeader("x-rapidapi-host", "instagram130.p.rapidapi.com")
+                                                                                                                .addHeader("x-rapidapi-key", "19c7e07597mshd4a487bebda6ef4p1c4c7fjsna9c61e2c34f8")
+                                                                                                                .build();
+
+
+                                                                                                        client.newCall(request).enqueue(new Callback() {
+                                                                                                            @Override
+                                                                                                            public void onFailure(Call call, IOException e) {
+                                                                                                                progressBar.setVisibility(View.INVISIBLE);
+                                                                                                                DynamicToast.makeError(getActivity(),e.getMessage(),2000).show();
+                                                                                                            }
+
+                                                                                                            @Override
+                                                                                                            public void onResponse(Call call, Response response) throws IOException {
+
+
+                                                                                                                if(response.isSuccessful())
+                                                                                                                {
+
+                                                                                                                    String res=response.body().string();
+
+                                                                                                                    getActivity().runOnUiThread(new Runnable() {
+                                                                                                                        @Override
+                                                                                                                        public void run() {
+
+                                                                                                                            try {
+
+                                                                                                                                JSONObject jsonObject=new JSONObject(res);
+
+                                                                                                                                String display_url=jsonObject.getString("display_url");
+
+                                                                                                                                Glide.with(getActivity())
+                                                                                                                                        .load(display_url)
+                                                                                                                                        .placeholder(R.drawable.ic_baseline_image_search_24_resized)
+                                                                                                                                        .error(R.drawable.ic_outline_image_not_supported_24_resized)
+                                                                                                                                        .into(vidImg);
+                                                                                                                                Glide.with(getActivity())
+                                                                                                                                        .load(display_url)
+                                                                                                                                        .placeholder(R.drawable.ic_baseline_image_search_24_black)
+                                                                                                                                        .error(R.drawable.ic_outline_image_not_supported_24_black)
+                                                                                                                                        .into(circleImageView);
+
+                                                                                                                                boolean is_video=jsonObject.getBoolean("is_video");
+                                                                                                                                if(is_video)
+                                                                                                                                {
+
+                                                                                                                                    String video_url=jsonObject.getString("video_url");
+                                                                                                                                    double video_duration=jsonObject.getDouble("video_duration");
+                                                                                                                                    timeTV.setText(String.format("%.2f",video_duration)+" secs");
+
+                                                                                                                                    long viewsCount=jsonObject.getLong("video_view_count");
+                                                                                                                                    String strViews=getFormattedAmount(viewsCount);
+                                                                                                                                    viewsTV.setText(strViews+" views");
+
+                                                                                                                                    progressBar.setVisibility(View.INVISIBLE);
+                                                                                                                                    cardView.setVisibility(View.VISIBLE);
+
+                                                                                                                                    download.setOnClickListener(new View.OnClickListener() {
+                                                                                                                                        @Override
+                                                                                                                                        public void onClick(View v) {
+                                                                                                                                            downloadURL(video_url);
+                                                                                                                                        }
+                                                                                                                                    });
+
+                                                                                                                                }
+
+
+                                                                                                                            } catch (JSONException e) {
+                                                                                                                                progressBar.setVisibility(View.INVISIBLE);
+                                                                                                                                DynamicToast.makeError(getActivity(),e.getMessage(),2000).show();
+                                                                                                                            }
+
+                                                                                                                        }
+                                                                                                                    });
+
+                                                                                                                }
+                                                                                                                else
+                                                                                                                {
+
+                                                                                                                    Request request = new Request.Builder()
+                                                                                                                            .url("https://instagram130.p.rapidapi.com/media-info?code="+ID)
+                                                                                                                            .get()
+                                                                                                                            .addHeader("x-rapidapi-host", "instagram130.p.rapidapi.com")
+                                                                                                                            .addHeader("x-rapidapi-key", "49f2e9d8eamshff24c9679874ca7p149867jsn79bdeabe5c66")
+                                                                                                                            .build();
+
+
+                                                                                                                    client.newCall(request).enqueue(new Callback() {
+                                                                                                                        @Override
+                                                                                                                        public void onFailure(Call call, IOException e) {
+                                                                                                                            progressBar.setVisibility(View.INVISIBLE);
+                                                                                                                            DynamicToast.makeError(getActivity(),e.getMessage(),2000).show();
+                                                                                                                        }
+
+                                                                                                                        @Override
+                                                                                                                        public void onResponse(Call call, Response response) throws IOException {
+
+
+                                                                                                                            if(response.isSuccessful())
+                                                                                                                            {
+
+                                                                                                                                String res=response.body().string();
+
+                                                                                                                                getActivity().runOnUiThread(new Runnable() {
+                                                                                                                                    @Override
+                                                                                                                                    public void run() {
+
+                                                                                                                                        try {
+
+                                                                                                                                            JSONObject jsonObject=new JSONObject(res);
+
+                                                                                                                                            String display_url=jsonObject.getString("display_url");
+
+                                                                                                                                            Glide.with(getActivity())
+                                                                                                                                                    .load(display_url)
+                                                                                                                                                    .placeholder(R.drawable.ic_baseline_image_search_24_resized)
+                                                                                                                                                    .error(R.drawable.ic_outline_image_not_supported_24_resized)
+                                                                                                                                                    .into(vidImg);
+                                                                                                                                            Glide.with(getActivity())
+                                                                                                                                                    .load(display_url)
+                                                                                                                                                    .placeholder(R.drawable.ic_baseline_image_search_24_black)
+                                                                                                                                                    .error(R.drawable.ic_outline_image_not_supported_24_black)
+                                                                                                                                                    .into(circleImageView);
+
+                                                                                                                                            boolean is_video=jsonObject.getBoolean("is_video");
+                                                                                                                                            if(is_video)
+                                                                                                                                            {
+
+                                                                                                                                                String video_url=jsonObject.getString("video_url");
+                                                                                                                                                double video_duration=jsonObject.getDouble("video_duration");
+                                                                                                                                                timeTV.setText(String.format("%.2f",video_duration)+" secs");
+
+                                                                                                                                                long viewsCount=jsonObject.getLong("video_view_count");
+                                                                                                                                                String strViews=getFormattedAmount(viewsCount);
+                                                                                                                                                viewsTV.setText(strViews+" views");
+
+                                                                                                                                                progressBar.setVisibility(View.INVISIBLE);
+                                                                                                                                                cardView.setVisibility(View.VISIBLE);
+
+                                                                                                                                                download.setOnClickListener(new View.OnClickListener() {
+                                                                                                                                                    @Override
+                                                                                                                                                    public void onClick(View v) {
+                                                                                                                                                        downloadURL(video_url);
+                                                                                                                                                    }
+                                                                                                                                                });
+
+                                                                                                                                            }
+
+
+                                                                                                                                        } catch (JSONException e) {
+                                                                                                                                            progressBar.setVisibility(View.INVISIBLE);
+                                                                                                                                            DynamicToast.makeError(getActivity(),e.getMessage(),2000).show();
+                                                                                                                                        }
+
+                                                                                                                                    }
+                                                                                                                                });
+
+                                                                                                                            }
+
+                                                                                                                        }
+                                                                                                                    });
+
+                                                                                                                }
+
+                                                                                                            }
+                                                                                                        });
+
+                                                                                                    }
+
+                                                                                                }
+                                                                                            });
+
+                                                                                        }
+
+
+                                                                                    }
+                                                                                });
+
+                                                                            }
+
+                                                                        }
+                                                                    });
+
+                                                                }
+
+
+
+                                                            }
+                                                        });
+
                                                     }
 
                                                 }

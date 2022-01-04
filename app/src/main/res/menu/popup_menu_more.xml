@@ -5,5 +5,9 @@
         android:title="Copy Link"
         android:id="@+id/copyLink"/>
 
+    <item
+        android:title="Play Video"
+        android:id="@+id/playVideo"/>
+
 
 </menu>

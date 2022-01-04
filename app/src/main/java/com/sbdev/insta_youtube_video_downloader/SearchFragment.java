@@ -50,6 +50,8 @@ public class SearchFragment extends Fragment {
 
     private OkHttpClient client;
 
+    private String text="";
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -79,12 +81,13 @@ public class SearchFragment extends Fragment {
                 progressBar.setVisibility(View.VISIBLE);
                 arrayList.clear();
 
-                String text=searchText.getText().toString();
+                text=searchText.getText().toString();
 
                 text=text.trim();
 
                 if(text.isEmpty())
                 {
+                    adapter.notifyDataSetChanged();
                     DynamicToast.makeWarning(getActivity(),"Field cannot be empty",2000).show();
                     progressBar.setVisibility(View.INVISIBLE);
                 }
@@ -171,6 +174,192 @@ public class SearchFragment extends Fragment {
                                         } catch (JSONException e) {
                                             progressBar.setVisibility(View.INVISIBLE);
                                             DynamicToast.makeError(getActivity(),e.getMessage(),2000).show();
+                                        }
+
+                                    }
+                                });
+
+                            }
+                            else
+                            {
+
+                                Request request = new Request.Builder()
+                                        .url("https://youtube-search-results.p.rapidapi.com/youtube-search/?q="+text)
+                                        .get()
+                                        .addHeader("x-rapidapi-host", "youtube-search-results.p.rapidapi.com")
+                                        .addHeader("x-rapidapi-key", "e8f6c57650msh666fef2e3a110b5p13b950jsn4359d608e124")
+                                        .build();
+
+                                client.newCall(request).enqueue(new Callback() {
+                                    @Override
+                                    public void onFailure(Call call, IOException e) {
+                                        progressBar.setVisibility(View.INVISIBLE);
+                                        getActivity().runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                DynamicToast.makeError(getActivity(),e.getMessage(),2000).show();
+                                            }
+                                        });
+                                    }
+
+                                    @Override
+                                    public void onResponse(Call call, Response response) throws IOException {
+
+                                        if(response.isSuccessful())
+                                        {
+
+                                            String res=response.body().string();
+
+                                            getActivity().runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+
+                                                    try {
+
+                                                        JSONObject jsonObject=new JSONObject(res);
+
+                                                        JSONArray items=jsonObject.getJSONArray("items");
+
+                                                        for(int i=0;i<items.length();i++)
+                                                        {
+
+                                                            JSONObject index=items.getJSONObject(i);
+
+                                                            if ((index.has("id")
+                                                                    && index.getString("id") != null
+                                                                    && index.getString("id").trim().length() != 0))
+                                                            {
+
+                                                                String title=index.getString("title");
+                                                                String vidID=index.getString("id");
+
+                                                                JSONObject bestThumbnail=index.getJSONObject("bestThumbnail");
+                                                                String url=bestThumbnail.getString("url");
+
+                                                                JSONObject author=index.getJSONObject("author");
+                                                                String name=author.getString("name");
+
+                                                                JSONArray avatars=author.getJSONArray("avatars");
+                                                                JSONObject zero=avatars.getJSONObject(0);
+
+                                                                String authorImgURL=zero.getString("url");
+
+                                                                long views=index.getLong("views");
+                                                                String convertedViews=getFormattedAmount(views);
+                                                                String duration=index.getString("duration");
+                                                                String uploadedAt=index.getString("uploadedAt");
+
+                                                                arrayList.add(new SearchModel(url,authorImgURL,duration,title,name,convertedViews,uploadedAt,vidID));
+
+                                                            }
+
+
+                                                        }
+
+                                                        adapter.notifyDataSetChanged();
+                                                        progressBar.setVisibility(View.INVISIBLE);
+
+                                                    } catch (JSONException e) {
+                                                        progressBar.setVisibility(View.INVISIBLE);
+                                                        DynamicToast.makeError(getActivity(),e.getMessage(),2000).show();
+                                                    }
+
+                                                }
+                                            });
+
+                                        }
+                                        else
+                                        {
+
+                                            Request request = new Request.Builder()
+                                                    .url("https://youtube-search-results.p.rapidapi.com/youtube-search/?q="+text)
+                                                    .get()
+                                                    .addHeader("x-rapidapi-host", "youtube-search-results.p.rapidapi.com")
+                                                    .addHeader("x-rapidapi-key", "49f2e9d8eamshff24c9679874ca7p149867jsn79bdeabe5c66")
+                                                    .build();
+
+                                            client.newCall(request).enqueue(new Callback() {
+                                                @Override
+                                                public void onFailure(Call call, IOException e) {
+                                                    progressBar.setVisibility(View.INVISIBLE);
+                                                    getActivity().runOnUiThread(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            DynamicToast.makeError(getActivity(),e.getMessage(),2000).show();
+                                                        }
+                                                    });
+                                                }
+
+                                                @Override
+                                                public void onResponse(Call call, Response response) throws IOException {
+
+                                                    if(response.isSuccessful())
+                                                    {
+
+                                                        String res=response.body().string();
+
+                                                        getActivity().runOnUiThread(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+
+                                                                try {
+
+                                                                    JSONObject jsonObject=new JSONObject(res);
+
+                                                                    JSONArray items=jsonObject.getJSONArray("items");
+
+                                                                    for(int i=0;i<items.length();i++)
+                                                                    {
+
+                                                                        JSONObject index=items.getJSONObject(i);
+
+                                                                        if ((index.has("id")
+                                                                                && index.getString("id") != null
+                                                                                && index.getString("id").trim().length() != 0))
+                                                                        {
+
+                                                                            String title=index.getString("title");
+                                                                            String vidID=index.getString("id");
+
+                                                                            JSONObject bestThumbnail=index.getJSONObject("bestThumbnail");
+                                                                            String url=bestThumbnail.getString("url");
+
+                                                                            JSONObject author=index.getJSONObject("author");
+                                                                            String name=author.getString("name");
+
+                                                                            JSONArray avatars=author.getJSONArray("avatars");
+                                                                            JSONObject zero=avatars.getJSONObject(0);
+
+                                                                            String authorImgURL=zero.getString("url");
+
+                                                                            long views=index.getLong("views");
+                                                                            String convertedViews=getFormattedAmount(views);
+                                                                            String duration=index.getString("duration");
+                                                                            String uploadedAt=index.getString("uploadedAt");
+
+                                                                            arrayList.add(new SearchModel(url,authorImgURL,duration,title,name,convertedViews,uploadedAt,vidID));
+
+                                                                        }
+
+
+                                                                    }
+
+                                                                    adapter.notifyDataSetChanged();
+                                                                    progressBar.setVisibility(View.INVISIBLE);
+
+                                                                } catch (JSONException e) {
+                                                                    progressBar.setVisibility(View.INVISIBLE);
+                                                                    DynamicToast.makeError(getActivity(),e.getMessage(),2000).show();
+                                                                }
+
+                                                            }
+                                                        });
+
+                                                    }
+
+                                                }
+                                            });
+
                                         }
 
                                     }

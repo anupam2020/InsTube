@@ -14,37 +14,41 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Insta_Youtube_Video_Downloader">
         <activity
-            android:name=".PrivacyPolicyActivity"
-            android:exported="false"
+            android:name=".PlayVideoWebView"
+            android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/BlackTheme"/>
+            android:theme="@style/BlackTheme" />
+        <activity
+            android:name=".PrivacyPolicyActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/BlackTheme" />
         <activity
             android:name=".TermsConditionsActivity"
-            android:exported="false"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/BlackTheme" />
         <activity
             android:name=".AboutUsActivity"
-            android:exported="false"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/BlackTheme" />
         <activity
+            android:launchMode="singleInstance"
             android:name=".MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/BlackTheme" >
+            android:theme="@style/BlackTheme">
 
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="*/*" />
+                <data android:mimeType="text/*" />
             </intent-filter>
 
         </activity>
         <activity
+            android:launchMode="singleInstance"
             android:name=".SplashScreen"
             android:exported="true"
             android:screenOrientation="portrait">

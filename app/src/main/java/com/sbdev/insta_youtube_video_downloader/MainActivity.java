@@ -1,6 +1,7 @@
 package com.sbdev.insta_youtube_video_downloader;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -13,8 +14,10 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -41,6 +44,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private ClipboardManager clipboardManager;
 
+    private SharedPreferences sp;
+
+    private String SHARED_PREFS="SHARED_PREFS";
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,24 +66,58 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         clipboardManager= (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
 
+        sp=getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
+        if(sp.getInt("key",0)==0)
+        {
+
+            AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+
+            builder.setTitle("Welcome");
+            builder.setMessage("Please copy the link first and then choose InsTube!");
+
+            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+
+                    SharedPreferences.Editor editor=sp.edit();
+                    editor.putInt("key",1);
+                    editor.apply();
+
+                }
+            }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+
+                    SharedPreferences.Editor editor=sp.edit();
+                    editor.putInt("key",1);
+                    editor.apply();
+                }
+            });
+
+            builder.show();
+
+        }
+
         navigationView.setNavigationItemSelectedListener(this);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,new HomeFragment()).commit();
         this.onNavigationItemSelected(navigationView.getMenu().getItem(0).setChecked(true));
 
 
-        Intent intent = getIntent();
-        String action = intent.getAction();
-        String type = intent.getType();
-        if ("android.intent.action.SEND".equals(action) && type != null && "text/plain".equals(type)) {
-            Log.d("Copied Text",intent.getStringExtra("android.intent.extra.TEXT"));
-
-            ClipData clipData=ClipData.newPlainText("label",intent.getStringExtra("android.intent.extra.TEXT"));
-            clipboardManager.setPrimaryClip(clipData);
-            DynamicToast.make(MainActivity.this, "Link successfully copied... Just paste it!", getResources().getDrawable(R.drawable.ic_baseline_check_circle_outline_24),
-                    getResources().getColor(R.color.white), getResources().getColor(R.color.black), 2000).show();
-
-        }
+//        Intent intent = getIntent();
+//        String action = intent.getAction();
+//        String type = intent.getType();
+//        if ("android.intent.action.SEND".equals(action) && type != null && "text/plain".equals(type)) {
+//            Log.d("Copied Text",intent.getStringExtra("android.intent.extra.TEXT"));
+//
+//            ClipData clipData=ClipData.newPlainText("label",intent.getStringExtra("android.intent.extra.TEXT"));
+//            clipboardManager.setPrimaryClip(clipData);
+//            DynamicToast.make(MainActivity.this, "Link successfully copied... Just paste it!", getResources().getDrawable(R.drawable.ic_baseline_check_circle_outline_24),
+//                    getResources().getColor(R.color.white), getResources().getColor(R.color.black), 2000).show();
+//
+//        }
 
 
         img.setOnClickListener(new View.OnClickListener() {
@@ -252,6 +294,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
     }
-
 
 }
