@@ -11,3 +11,6 @@
 * RapidAPI
 * OkHttp
 * Circle ImageView
+* RecyclerView
+* Download Manager
+* Tab Layout & View Pager
