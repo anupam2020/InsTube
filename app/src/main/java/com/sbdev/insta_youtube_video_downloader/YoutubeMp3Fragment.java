@@ -1,17 +1,22 @@
 package com.sbdev.insta_youtube_video_downloader;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Environment;
 import android.view.LayoutInflater;
@@ -24,6 +29,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.pranavpandey.android.dynamic.toasts.DynamicToast;
 
@@ -32,6 +38,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.Call;
@@ -53,15 +60,17 @@ public class YoutubeMp3Fragment extends Fragment {
 
     private String ID="";
 
-    private TextView vidTitle,qualityTV,timeTV;
+    private TextView vidTitle,vidTime;
 
-    private ImageView vidImg,download;
+    private ImageView vidImg;
 
     private ProgressBar progressBar;
 
-    private CircleImageView circleImageView;
+    private ArrayList<YoutubeMP3Model> arrayList;
 
-    private CardView cardView;
+    private YoutubeMP3Adapter adapter;
+
+    private RecyclerView recyclerView;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -73,15 +82,15 @@ public class YoutubeMp3Fragment extends Fragment {
         vidTitle=view.findViewById(R.id.youtubeMP3VideoTitle);
         vidImg=view.findViewById(R.id.youtubeMP3VideoImg);
         progressBar=view.findViewById(R.id.youtubeMP3Progress);
-        download=view.findViewById(R.id.youtubeMP3DownloadBtn);
-        qualityTV=view.findViewById(R.id.youtubeMP3QualityText);
-        timeTV=view.findViewById(R.id.youtubeMP3TimeText);
-        circleImageView=view.findViewById(R.id.youtubeMP3CircularImg);
-        cardView=view.findViewById(R.id.youtubeMP3Card2);
+        vidTime=view.findViewById(R.id.youtubeMP3VideoTime);
+        recyclerView=view.findViewById(R.id.youtubeMP3Recycler);
 
         progressBar.setVisibility(View.INVISIBLE);
-        cardView.setVisibility(View.INVISIBLE);
 
+        arrayList=new ArrayList<>();
+
+        adapter=new YoutubeMP3Adapter(arrayList,getActivity());
+        recyclerView.setAdapter(adapter);
 
         clipboard= (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
 
@@ -111,115 +120,119 @@ public class YoutubeMp3Fragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-
-                progressBar.setVisibility(View.VISIBLE);
-
-                String ytLink=ytEditText.getText().toString();
-
-                ytLink=ytLink.trim();
-
-                if(ytLink.isEmpty())
-                {
-                    progressBar.setVisibility(View.INVISIBLE);
-                    DynamicToast.makeWarning(getActivity(),"Field cannot be empty!",2000).show();
-                }
-                else
+                if(haveStoragePermission(v))
                 {
 
-                    ID=ytLink.substring(ytLink.lastIndexOf('/')+1);
+                    arrayList.clear();
 
-                    Request request = new Request.Builder()
-                            .url("https://youtube-search-and-download.p.rapidapi.com/video?id="+ID)
-                            .get()
-                            .addHeader("x-rapidapi-host", "youtube-search-and-download.p.rapidapi.com")
-                            .addHeader("x-rapidapi-key", "19c7e07597mshd4a487bebda6ef4p1c4c7fjsna9c61e2c34f8")
-                            .build();
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
-                    client.newCall(request).enqueue(new Callback() {
-                        @Override
-                        public void onFailure(Call call, IOException e) {
-                            progressBar.setVisibility(View.INVISIBLE);
-                            DynamicToast.makeError(getActivity(),e.getMessage(),2000).show();
-                        }
+                    progressBar.setVisibility(View.VISIBLE);
 
-                        @Override
-                        public void onResponse(Call call, Response response) throws IOException {
+                    String ytLink=ytEditText.getText().toString();
 
-                            if(response.isSuccessful())
-                            {
+                    ytLink=ytLink.trim();
 
-                                String res=response.body().string();
+                    if(ytLink.isEmpty())
+                    {
+                        progressBar.setVisibility(View.INVISIBLE);
+                        DynamicToast.makeWarning(getActivity(),"Field cannot be empty!",2000).show();
+                    }
+                    else
+                    {
 
-                                getActivity().runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
+                        ID=ytLink.substring(ytLink.lastIndexOf('/')+1);
 
-                                        try {
+                        Request request = new Request.Builder()
+                                .url("https://youtube-search-and-download.p.rapidapi.com/video?id="+ID)
+                                .get()
+                                .addHeader("x-rapidapi-host", "youtube-search-and-download.p.rapidapi.com")
+                                .addHeader("x-rapidapi-key", "19c7e07597mshd4a487bebda6ef4p1c4c7fjsna9c61e2c34f8")
+                                .build();
 
-                                            JSONObject jsonObject=new JSONObject(res);
-
-                                            JSONObject streamingData=jsonObject.getJSONObject("streamingData");
-                                            JSONArray adaptiveFormats=streamingData.getJSONArray("adaptiveFormats");
-
-                                            JSONObject index=adaptiveFormats.getJSONObject(adaptiveFormats.length()-1);
-
-                                            long approxDurationMs=index.getLong("approxDurationMs");
-                                            String appDur=String.format("%.2f",(double)approxDurationMs/60000);
-                                            timeTV.setText(appDur+" mins");
-
-                                            String mimeType=index.getString("mimeType");
-                                            qualityTV.setText(mimeType.substring(0,10).toUpperCase());
-
-                                            String url=index.getString("url");
-
-
-                                            JSONObject videoDetails=jsonObject.getJSONObject("videoDetails");
-
-                                            String title=videoDetails.getString("title");
-                                            vidTitle.setText(title);
-
-                                            JSONObject thumbnail=videoDetails.getJSONObject("thumbnail");
-                                            JSONArray thumbnails=thumbnail.getJSONArray("thumbnails");
-
-                                            JSONObject indexJSON=thumbnails.getJSONObject(thumbnails.length()-1);
-                                            String urlJSON=indexJSON.getString("url");
-
-                                            Glide.with(getActivity())
-                                                    .load(urlJSON)
-                                                    .placeholder(R.drawable.ic_baseline_image_search_24_resized)
-                                                    .error(R.drawable.ic_outline_image_not_supported_24_resized)
-                                                    .into(vidImg);
-                                            Glide.with(getActivity())
-                                                    .load(urlJSON)
-                                                    .placeholder(R.drawable.ic_baseline_image_search_24_black)
-                                                    .error(R.drawable.ic_outline_image_not_supported_24_black)
-                                                    .into(circleImageView);
-
-                                            progressBar.setVisibility(View.INVISIBLE);
-                                            cardView.setVisibility(View.VISIBLE);
-
-                                            download.setOnClickListener(new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View v) {
-                                                    downloadURL(url,title);
-                                                }
-                                            });
-
-
-                                        } catch (JSONException e) {
-                                            progressBar.setVisibility(View.INVISIBLE);
-                                            DynamicToast.makeError(getActivity(),e.getMessage(),2000).show();
-                                        }
-
-                                    }
-                                });
-
+                        client.newCall(request).enqueue(new Callback() {
+                            @Override
+                            public void onFailure(Call call, IOException e) {
+                                progressBar.setVisibility(View.INVISIBLE);
+                                DynamicToast.makeError(getActivity(),e.getMessage(),2000).show();
                             }
 
-                        }
-                    });
+                            @Override
+                            public void onResponse(Call call, Response response) throws IOException {
+
+                                if(response.isSuccessful())
+                                {
+
+                                    String res=response.body().string();
+
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+
+                                            try {
+
+                                                JSONObject jsonObject=new JSONObject(res);
+
+                                                JSONObject videoDetails=jsonObject.getJSONObject("videoDetails");
+
+                                                String title=videoDetails.getString("title");
+                                                long lengthSeconds=videoDetails.getLong("lengthSeconds");
+                                                String lenSec=String.format("%.2f",(double)lengthSeconds/60)+" mins";
+
+                                                vidTitle.setText(title);
+                                                vidTime.setText("Time: "+lenSec);
+
+                                                JSONObject thumbnail=videoDetails.getJSONObject("thumbnail");
+                                                JSONArray thumbnails=thumbnail.getJSONArray("thumbnails");
+
+                                                JSONObject indexJSON=thumbnails.getJSONObject(thumbnails.length()-1);
+                                                String urlIMG=indexJSON.getString("url");
+
+                                                Glide.with(getActivity())
+                                                        .load(urlIMG)
+                                                        .placeholder(R.drawable.ic_baseline_image_search_24_resized)
+                                                        .error(R.drawable.ic_outline_image_not_supported_24_resized)
+                                                        .into(vidImg);
+
+                                                JSONObject streamingData=jsonObject.getJSONObject("streamingData");
+                                                JSONArray adaptiveFormats=streamingData.getJSONArray("adaptiveFormats");
+
+                                                for(int i=adaptiveFormats.length()-5;i<adaptiveFormats.length();i++)
+                                                {
+
+                                                    JSONObject index=adaptiveFormats.getJSONObject(i);
+
+                                                    String mimeType=index.getString("mimeType");
+                                                    String newMimeType=mimeType.substring(0,mimeType.indexOf(';')).toUpperCase();
+
+                                                    String audioQuality=index.getString("audioQuality");
+                                                    String newAudioQuality=audioQuality.substring(audioQuality.lastIndexOf("_")+1).toUpperCase();
+
+                                                    String vidURL=index.getString("url");
+
+                                                    arrayList.add(new YoutubeMP3Model(urlIMG,vidURL,newAudioQuality,newMimeType,title));
+
+                                                }
+
+                                                progressBar.setVisibility(View.INVISIBLE);
+
+                                                adapter.notifyDataSetChanged();
+
+                                            } catch (JSONException e) {
+                                                progressBar.setVisibility(View.INVISIBLE);
+                                                DynamicToast.makeError(getActivity(),e.getMessage(),2000).show();
+                                            }
+
+                                        }
+                                    });
+
+                                }
+
+                            }
+                        });
+
+                    }
 
                 }
 
@@ -242,6 +255,24 @@ public class YoutubeMp3Fragment extends Fragment {
 
         downloadManager.enqueue(request);
 
+        DynamicToast.make(getActivity(), "Downloading file!", getResources().getDrawable(R.drawable.ic_outline_download_for_offline_24_blue),
+                getResources().getColor(R.color.white), getResources().getColor(R.color.black), 2000).show();
+
+    }
+
+    public  boolean haveStoragePermission(View view) {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (getActivity().checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                return true;
+            } else {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                Snackbar.make(view,"InsTube needs storage permission to download files!",2500).show();
+                return false;
+            }
+        }
+
+        return true;
     }
 
 

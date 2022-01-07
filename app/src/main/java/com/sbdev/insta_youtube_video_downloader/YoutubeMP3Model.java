@@ -1,10 +1,10 @@
 package com.sbdev.insta_youtube_video_downloader;
 
-public class YoutubeModel {
+public class YoutubeMP3Model {
 
     String imgURL,ytURL,quality,type,title;
 
-    public YoutubeModel(String imgURL, String ytURL, String quality, String type, String title) {
+    public YoutubeMP3Model(String imgURL, String ytURL, String quality, String type, String title) {
         this.imgURL = imgURL;
         this.ytURL = ytURL;
         this.quality = quality;

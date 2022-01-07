@@ -179,48 +179,6 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:id="@+id/moreRelative4"
-                    android:layout_marginTop="10dp">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/moreRate"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        app:civ_border_width="14dp"
-                        android:src="@drawable/ic_baseline_star_24_grey"
-                        app:civ_circle_background_color="#1AFFB300"
-                        android:layout_centerVertical="true"
-                        app:civ_border_color="#1AFFB300"
-                        />
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/moreRate"
-                        android:text="Rate Us"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="30dp"
-                        android:textSize="16dp"
-                        android:textColor="@color/black"
-                        android:id="@+id/moreRateUs"/>
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:id="@+id/arrowRate"
-                        app:tint="@color/grey"/>
-
-                </RelativeLayout>
-
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
                     android:id="@+id/moreRelative5"
                     android:layout_marginTop="10dp">
 

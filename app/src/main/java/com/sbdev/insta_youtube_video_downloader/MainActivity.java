@@ -147,10 +147,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 finishAffinity();
                                 break;
 
-                            case R.id.rateUs:
-                                openAppInGooglePlay();
-                                break;
-
                         }
 
                         return true;
@@ -260,24 +256,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     {
 
         try {
-            String appPackageName = getPackageName();
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, "Check out the App at: https://play.google.com/store/apps/details?id=" + appPackageName);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "Check out the App at: https://github.com/anupam2020/APKFiles/blob/main/InsTube/app/apk");
             sendIntent.setType("text/plain");
             startActivity(sendIntent);
         } catch(Exception e) {
-            DynamicToast.makeError(this,e.getMessage(),2000).show();
+            DynamicToast.makeError(MainActivity.this,e.getMessage(),2000).show();
         }
 
     }
 
     public void openAppInGooglePlay() {
-        String appPackageName = getPackageName();
         try {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/anupam2020/APKFiles/blob/main/InsTube/app/apk/InsTube.apk")));
         } catch (android.content.ActivityNotFoundException e) { // if there is no Google Play on device
-            DynamicToast.makeError(this,e.getMessage(),2000).show();
+            DynamicToast.makeError(MainActivity.this,e.getMessage(),2000).show();
         }
     }
 

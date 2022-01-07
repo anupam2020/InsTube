@@ -63,7 +63,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/youtubeLinear"
-            android:layout_marginTop="25dp">
+            android:layout_marginTop="25dp"
+            android:requiresFadingEdge="vertical"
+            android:fadingEdgeLength="15dp"
+            android:scrollbars="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -108,63 +111,26 @@
                     android:textAlignment="center"
                     android:textSize="16sp"/>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="10dp"
-                    android:elevation="5dp"
-                    android:layout_margin="15dp"
-                    android:layout_below="@+id/youtubeVideoTitle"
-                    android:id="@+id/youtubeCard2"
-                    android:visibility="invisible">
+                    android:textColor="@color/black"
+                    android:layout_below="@id/youtubeVideoTitle"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/youtubeVideoTime"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="15dp">
 
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:id="@+id/youtubeCircularImg"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/youtubeRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/youtubeVideoTime"
+                    android:layout_marginTop="5sp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/black"
-                                android:textSize="18dp"
-                                android:id="@+id/youtubeQualityText"
-                                android:layout_gravity="center"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/black"
-                                android:textSize="15dp"
-                                android:id="@+id/youtubeTimeText"
-                                android:layout_gravity="center"
-                                android:textStyle="bold"/>
-
-                        </LinearLayout>
-
-                        <ImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:src="@drawable/ic_outline_download_for_offline_24"
-                            android:layout_alignParentEnd="true"
-                            android:id="@+id/youtubeDownloadBtn"
-                            app:tint="@color/red"
-                            android:layout_centerVertical="true" />
-
-                    </RelativeLayout>
-
-                </androidx.cardview.widget.CardView>
 
             </RelativeLayout>
 

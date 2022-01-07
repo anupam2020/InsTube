@@ -17,11 +17,11 @@
             android:layout_margin="15dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/itemCircularImg"
+                android:id="@+id/itemCircularImgMP3"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/instube_new"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true"
+                android:src="@drawable/instube_new" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -32,32 +32,32 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="360P- MEDIUM"
+                    android:text="QUALITY- MEDIUM"
                     android:textColor="@color/black"
                     android:textSize="16dp"
                     android:layout_gravity="center"
-                    android:id="@+id/itemQualityText"/>
+                    android:id="@+id/itemQualityTextMP3"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="VIDEO/MP4"
+                    android:text="AUDIO/WEBM"
                     android:textColor="@color/black"
                     android:textSize="12dp"
                     android:textStyle="bold"
                     android:layout_gravity="center"
-                    android:id="@+id/itemTypeText"/>
+                    android:id="@+id/itemTypeTextMP3"/>
 
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/itemDownloadBtn"
+                android:id="@+id/itemDownloadBtnMP3"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_outline_download_for_offline_24"
-                app:tint="@color/red" />
+                app:tint="@color/blue" />
 
         </RelativeLayout>
 

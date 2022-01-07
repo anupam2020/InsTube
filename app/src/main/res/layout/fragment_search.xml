@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/searchLink"
-                android:drawableStart="@drawable/ic_baseline_link_24"
+                android:drawableStart="@drawable/ic_baseline_search_24"
                 android:drawableTint="@color/black"
                 android:hint="Search here"
                 android:drawablePadding="15dp"

@@ -20,12 +20,12 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class YoutubeAdapter extends RecyclerView.Adapter<YoutubeAdapter.YoutubeViewHolder> {
+public class YoutubeMP3Adapter extends RecyclerView.Adapter<YoutubeMP3Adapter.YoutubeViewHolder> {
 
-    ArrayList<YoutubeModel> arrayList;
+    ArrayList<YoutubeMP3Model> arrayList;
     Context context;
 
-    public YoutubeAdapter(ArrayList<YoutubeModel> arrayList, Context context) {
+    public YoutubeMP3Adapter(ArrayList<YoutubeMP3Model> arrayList, Context context) {
         this.arrayList = arrayList;
         this.context = context;
     }
@@ -33,7 +33,7 @@ public class YoutubeAdapter extends RecyclerView.Adapter<YoutubeAdapter.YoutubeV
     @NonNull
     @Override
     public YoutubeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new YoutubeViewHolder(LayoutInflater.from(context).inflate(R.layout.youtube_item_layout,parent,false));
+        return new YoutubeViewHolder(LayoutInflater.from(context).inflate(R.layout.youtube_mp3_item_layout,parent,false));
     }
 
     @Override
@@ -45,7 +45,7 @@ public class YoutubeAdapter extends RecyclerView.Adapter<YoutubeAdapter.YoutubeV
                 .error(R.drawable.ic_outline_image_not_supported_24_black)
                 .into(holder.img);
 
-        holder.tvQuality.setText(arrayList.get(holder.getAdapterPosition()).quality);
+        holder.tvQuality.setText("QUALITY: "+arrayList.get(holder.getAdapterPosition()).quality);
         holder.tvType.setText(arrayList.get(holder.getAdapterPosition()).type);
 
         holder.download.setOnClickListener(new View.OnClickListener() {
@@ -76,10 +76,10 @@ public class YoutubeAdapter extends RecyclerView.Adapter<YoutubeAdapter.YoutubeV
         public YoutubeViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            img=itemView.findViewById(R.id.itemCircularImg);
-            tvQuality=itemView.findViewById(R.id.itemQualityText);
-            tvType=itemView.findViewById(R.id.itemTypeText);
-            download=itemView.findViewById(R.id.itemDownloadBtn);
+            img=itemView.findViewById(R.id.itemCircularImgMP3);
+            tvQuality=itemView.findViewById(R.id.itemQualityTextMP3);
+            tvType=itemView.findViewById(R.id.itemTypeTextMP3);
+            download=itemView.findViewById(R.id.itemDownloadBtnMP3);
 
         }
     }

@@ -17,6 +17,11 @@
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/drawable/ic_baseline_image_search_24_black.xml" value="0.2703125" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/drawable/ic_baseline_image_search_24_resized.xml" value="0.2703125" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/drawable/ic_baseline_manage_search_24.xml" value="0.2703125" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/drawable/ic_outline_download_for_offline_24.xml" value="0.2703125" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/drawable/ic_outline_download_for_offline_24_black.xml" value="0.2703125" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/drawable/ic_outline_download_for_offline_24_blue.xml" value="0.2703125" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/drawable/ic_outline_download_for_offline_24_purple.xml" value="0.2703125" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/drawable/ic_outline_download_for_offline_24_red.xml" value="0.2703125" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/drawable/ic_outline_image_not_supported_24_black.xml" value="0.2703125" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/drawable/ic_outline_image_not_supported_24_resized.xml" value="0.2703125" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/drawable/purple_bg.xml" value="0.2703125" />
@@ -41,6 +46,7 @@
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/layout/insta_item_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/layout/search_item_layout.xml" value="0.264" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/layout/youtube_item_layout.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/layout/youtube_mp3_item_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/menu/drawer_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/menu/menu.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Insta_Youtube_Video_Downloader/app/src/main/res/menu/popup_menu.xml" value="0.25416666666666665" />
