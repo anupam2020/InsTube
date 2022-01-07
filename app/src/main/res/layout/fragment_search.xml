@@ -12,14 +12,14 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/searchText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Search your videos here!"
             android:layout_centerHorizontal="true"
-            android:textSize="20dp"
+            android:layout_marginTop="15dp"
+            android:text="Search your videos here!"
             android:textColor="@color/black"
-            android:id="@+id/searchText"
-            android:layout_marginTop="15dp"/>
+            android:textSize="20dp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -36,7 +36,7 @@
                 android:id="@+id/searchLink"
                 android:drawableStart="@drawable/ic_baseline_link_24"
                 android:drawableTint="@color/black"
-                android:hint="Insta Link"
+                android:hint="Search here"
                 android:drawablePadding="15dp"
                 android:singleLine="true"/>
 
