@@ -93,7 +93,7 @@ public class YoutubeMP3Adapter extends RecyclerView.Adapter<YoutubeMP3Adapter.Yo
 
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,title+".mp4");
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,title+".mp3");
 
         downloadManager.enqueue(request);
 
