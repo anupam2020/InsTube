@@ -98,7 +98,7 @@ public class YoutubeMP3Adapter extends RecyclerView.Adapter<YoutubeMP3Adapter.Yo
         downloadManager.enqueue(request);
 
         DynamicToast.make(context,"Downloading file!",
-                context.getResources().getDrawable(R.drawable.ic_outline_download_for_offline_24_red),2000).show();
+                context.getResources().getDrawable(R.drawable.ic_outline_download_for_offline_24),2500).show();
 
     }
 

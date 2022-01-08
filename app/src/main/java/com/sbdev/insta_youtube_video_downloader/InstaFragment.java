@@ -976,8 +976,8 @@ public class InstaFragment extends Fragment {
 
         downloadManager.enqueue(request);
 
-        DynamicToast.make(getActivity(), "Downloading file!", getResources().getDrawable(R.drawable.ic_outline_download_for_offline_24_purple),
-                getResources().getColor(R.color.white), getResources().getColor(R.color.black), 2000).show();
+        DynamicToast.make(getActivity(),"Downloading file!",
+                getActivity().getResources().getDrawable(R.drawable.ic_outline_download_for_offline_24),2500).show();
 
     }
 
