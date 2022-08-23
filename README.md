@@ -1,7 +1,6 @@
 # InsTube
 Download Instagram videos and Youtube videos/audios in one click with search in-app feature!
 
-
 ### Libraries :
 * Lottie Animations
 * RapidAPI
